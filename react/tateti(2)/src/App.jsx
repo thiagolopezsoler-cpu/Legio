@@ -50,10 +50,10 @@ function App() {
           alert(jugador2 + " ganó");
           setPuntosj2((prevPuntosj2) => prevPuntosj2 + 1);  // Sumar puntos a Jugador 2
           console.log(puntosj2);
+          resetGame();
+          return;
         }
-        resetGame();
-        return;
-      }
+        }
     }
 
     // rebiza cada parate de los board y si estan todos las partes del arreglo llenas da mensaje de empate
@@ -91,14 +91,14 @@ function App() {
             <input
               className="input"
               type="text"
-              value={jugador1}
+              placeholder='jugador 1'
               onChange={(e) => setJugador1(e.target.value)}
             />
             <h1>Jugador 2</h1>
             <input
               className="input"
               type="text"
-              value={jugador2}
+              placeholder='jugador 2'
               onChange={(e) => setJugador2(e.target.value)}
             />
             <button className="btn" onClick={handleClick}>

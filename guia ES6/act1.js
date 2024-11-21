@@ -7,13 +7,12 @@ const inventory = [
 ]
 
 
-
-const maquinas = inventory.filter(inventory => inventory.type === "machine");
-
-const value = maquinas.reduce((contador, maquinas) => {
-return contador + maquinas.value;
+const machine = inventory.filter(inventory => inventory.type === "machine");
+console.log(machine);
 
 
+const valueMachine = machine.reduce((count, machine) =>{
+return count + machine.value;
+},0) 
 
-},0)
-console.log(value)
+console.log(valueMachine);
