@@ -17,13 +17,13 @@ let square = true;
 function magicSquare(array) {
 
     const sumOfRows = array.map(rows => rows.reduce((count, number) => count + number, 0,));
-    
+
     const count = sumOfRows[0];
-    
+
     const isMagicSquare = sumOfRows.every((rowsValue) => {
         return count === rowsValue;
-})
-    
+    })
+
 
     return isMagicSquare;
 

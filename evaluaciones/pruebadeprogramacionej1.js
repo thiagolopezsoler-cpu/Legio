@@ -30,4 +30,4 @@ function isDivisibleTheArray (array){
     
 }
 
-console.log("numeros del arreglo divisibles por 5 "+ isDivisibleTheArray(array))
+console.log("numeros del arreglo divisibles por 5 " + isDivisibleTheArray(array))
