@@ -1,0 +1,13 @@
+body {
+  background-color: black;
+  color: white;
+}
+/*
+.start {
+  display: grid;
+  justify-content: center;
+  width: 200px;
+  color: red;
+  background-color: #93f920;
+  border-radius: 10px;
+}
