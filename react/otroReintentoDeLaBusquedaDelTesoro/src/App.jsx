@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+//no vendria mal si pongo un boton que haga que si vos lo presionas te ponga un 
+//cuadrado automacticamente y que ese cuadrado obviamente sea aleatio
 export const App = () => {
   //save of name for player
   const [player, setPlayer] = useState('Player');
