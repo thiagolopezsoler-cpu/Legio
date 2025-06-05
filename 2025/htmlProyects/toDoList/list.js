@@ -52,9 +52,3 @@ options.forEach(optionText => {
 
 let form = document.getElementsByClassName("formulario");
 form[0].insertBefore(select, document.getElementById("agregarBtn"));
-
-
-
-
-
-
