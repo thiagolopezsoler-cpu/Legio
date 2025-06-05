@@ -75,4 +75,9 @@ y se ejecuta primero en la pagina.
 
 4_ No, el objetivo del defer es que el archivo js se ejecute al final del HTML independientemente de donde este ubicado en él. Se puede 
 evitar el uso si pones el script al final del codigo
+
+5_ <img src="imagen.jpg" alt="Una imagen de ejemplo">
+Atributo requerido: src (se requiere para su correcto funcionamiento)(Valor del atributo = imagen.jpg)
+Atributo opcional: alt(valor del atributo = "Una imagen de ejemplo")
+Tags: Solo tiene apertura, es autocerrado
 */
