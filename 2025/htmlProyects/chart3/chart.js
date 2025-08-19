@@ -40,3 +40,9 @@ const chart = new Chart(ctx, {
     }
 );
 
+
+let input = document.createElement('input')
+let main = document.querySelector('main')
+main.insertBefore(input, document.geteElementByTagName("h1").firstChild)
+
+console.log(document.getElementsByTagName('body'))

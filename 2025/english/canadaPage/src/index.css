@@ -1,0 +1,194 @@
+/* ===================== RESET BÁSICO ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===================== BODY ===================== */
+body {
+  background-color: #000;
+  color: white;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* ===================== HEADER ===================== */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background-color: #000;
+}
+
+.logo-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+header img {
+  width: 80px;
+  height: auto;
+  border-radius: 12px;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+header h2 {
+  font-size: 1rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+header h2:hover {
+  color: #ff416c;
+}
+
+header button {
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 200px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+header button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* ===================== PRINCIPAL ===================== */
+.principal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  gap: 40px;
+  font-family: 'Arial', sans-serif;
+  text-align: left;
+}
+
+.principal h1 {
+  flex: 1;
+  font-size: 4rem;
+  font-weight: bold;
+  max-width: 600px;
+}
+
+.principal img {
+  flex: 1;
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+  display: block;
+  margin-top: 10px;
+}
+
+/* ===================== FACTS ===================== */
+.facts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.fact-card {
+  background-color: #9392925b;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.fact-card h2 {
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.fact-card p {
+  margin: 4px 0;
+  color: #bdbdbd;
+}
+
+/* ===================== PLACES ===================== */
+.places-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas fijas */
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.place-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.place-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.place-card h3 {
+  margin: 10px;
+  font-size: 1.1rem;
+  color: #2b2b2b;
+  text-align: left;
+}
+
+.place-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 900px) {
+  .principal {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .principal h1 {
+    font-size: 2.5rem;
+  }
+
+  .places-container {
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
+  }
+}
+
+@media (max-width: 600px) {
+  .places-container {
+    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+  }
+}
+
+/* Estilo normal */
+header h2 {
+  padding: 20px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Subrayado solo si tiene la clase 'active' */
+header h2.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px; /* grosor del subrayado */
+  background-color: #fff; /* color del subrayado */
+}
