@@ -44,10 +44,22 @@ header h2 {
   font-size: 1rem;
   cursor: pointer;
   transition: color 0.3s;
+  padding: 20px;
+  position: relative;
 }
 
 header h2:hover {
   color: #ff416c;
+}
+
+header h2.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
 }
 
 header button {
@@ -70,23 +82,19 @@ header button:hover {
 /* ===================== PRINCIPAL ===================== */
 .principal {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   padding: 20px 40px;
   gap: 40px;
-  font-family: 'Arial', sans-serif;
-  text-align: left;
 }
 
 .principal h1 {
-  flex: 1;
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
-  max-width: 600px;
+  text-align: center;
 }
 
 .principal img {
-  flex: 1;
   max-width: 100%;
   height: auto;
   border-radius: 20px;
@@ -100,38 +108,42 @@ header button:hover {
   flex-direction: column;
   gap: 15px;
   margin-top: 20px;
+  width: 100%;
+  max-width: 900px;
 }
 
 .fact-card {
-  background-color: #9392925b;
+  background-color: #222;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .fact-card h2 {
   margin-bottom: 8px;
-  color: #ffffff;
+  color: #ff416c;
 }
 
 .fact-card p {
   margin: 4px 0;
-  color: #bdbdbd;
+  color: #ddd;
 }
 
 /* ===================== PLACES ===================== */
 .places-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas fijas */
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-top: 20px;
+  width: 100%;
 }
 
 .place-card {
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
   transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
 }
 
 .place-card img {
@@ -144,51 +156,90 @@ header button:hover {
 .place-card h3 {
   margin: 10px;
   font-size: 1.1rem;
-  color: #2b2b2b;
+  color: #fff;
   text-align: left;
 }
 
 .place-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(255,65,108,0.5);
+}
+
+/* ===================== PLACE DETAIL ===================== */
+.place-detail {
+  background-color: #111;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(255,65,108,0.5);
+  max-width: 1000px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.place-detail button {
+  background: #ff416c;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 200px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.place-detail button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255,65,108,0.6);
+}
+
+.place-detail h1 {
+  font-size: 2rem;
+  color: #ff416c;
+  text-align: center;
+}
+
+.place-detail p {
+  text-align: justify;
+  color: #ddd;
+}
+
+/* ===================== GALLERY ===================== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  width: 100%;
+}
+
+.gallery img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(255,65,108,0.5);
+  transition: transform 0.2s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
 }
 
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 900px) {
-  .principal {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .principal h1 {
-    font-size: 2.5rem;
-  }
-
   .places-container {
-    grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
   .places-container {
-    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    grid-template-columns: 1fr;
   }
-}
 
-/* Estilo normal */
-header h2 {
-  padding: 20px;
-  cursor: pointer;
-  position: relative;
-}
-
-/* Subrayado solo si tiene la clase 'active' */
-header h2.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px; /* grosor del subrayado */
-  background-color: #fff; /* color del subrayado */
+  .principal h1 {
+    font-size: 2rem;
+  }
 }
