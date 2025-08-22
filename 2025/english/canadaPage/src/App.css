@@ -1,3 +1,22 @@
+/* ----------------------------
+   GLOBAL
+----------------------------- */
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.principal {
+  padding: 2rem;
+}
+
+/* ----------------------------
+   HEADER & NAV
+----------------------------- */
 header {
   margin-bottom: 2rem;
 }
@@ -34,10 +53,9 @@ header {
   text-decoration: underline;
 }
 
-.principal {
-  padding: 2rem;
-}
-
+/* ----------------------------
+   LIST CONTAINERS
+----------------------------- */
 .facts-container,
 .places-container {
   display: grid;
@@ -46,6 +64,9 @@ header {
   margin-top: 2rem;
 }
 
+/* ----------------------------
+   CARDS
+----------------------------- */
 .fact-card,
 .place-card {
   background: var(--card);
@@ -69,6 +90,9 @@ header {
   border-radius: 8px;
 }
 
+/* ----------------------------
+   GALLERY
+----------------------------- */
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -89,6 +113,9 @@ header {
   transform: scale(1.05);
 }
 
+/* ----------------------------
+   BUTTONS
+----------------------------- */
 button {
   background: var(--primary);
   color: white;
@@ -104,4 +131,55 @@ button {
 button:hover {
   background: var(--primary-hover);
 }
+/* Quitar la barra azul al hacer clic */
+button:focus,
+h2:focus,
+img:focus {
+  outline: none;
+}
 
+/* Opcional: poner un efecto más lindo en su lugar */
+button:focus-visible {
+  box-shadow: 0 0 0 3px var(--primary);
+  border-radius: 8px;
+}
+
+h2:focus-visible {
+  text-decoration: underline;
+  color: var(--primary);
+}
+/* Quitar cualquier borde de enfoque feo */
+*:focus,
+*:active {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent; /* para móviles */
+}
+
+/* Opcional: si querés mantener un efecto lindo */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary);
+  border-radius: 8px;
+}
+/* Ocultar cualquier scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+html, body {
+  overflow: hidden; /* bloquea el scroll */
+  height: 100%;
+}
+*:focus {
+  outline: none;
+}
+/* Quitar el focus ring / highlight de todos los elementos */
+* {
+  outline: none !important;
+  -webkit-user-select: none; /* previene selección accidental al clic */
+  -webkit-tap-highlight-color: transparent; /* para móviles */
+}
+
+h2, div {
+  user-select: none;
+}
