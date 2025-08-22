@@ -53,15 +53,15 @@ function App() {
     {
       title: "History Timeline",
       content: "Key events in Canadian history.",
-      description: `
-- Before 1500: Indigenous peoples inhabit Canada.
-- 1497: John Cabot claims land for England.
-- 1534: Jacques Cartier explores St. Lawrence River for France.
-- 1608: Quebec founded by Samuel de Champlain.
-- 1867: Confederation forms first four provinces.
-- 1982: Canadian Constitution and Charter of Rights and Freedoms.
-- Present: Federal parliamentary democracy, bilingual, multicultural.
-      `,
+      description: [
+        { year: "Before 1500", event: "Indigenous peoples inhabit Canada." },
+        { year: "1497", event: "John Cabot claims land for England." },
+        { year: "1534", event: "Jacques Cartier explores St. Lawrence River for France." },
+        { year: "1608", event: "Quebec founded by Samuel de Champlain." },
+        { year: "1867", event: "Confederation forms first four provinces." },
+        { year: "1982", event: "Canadian Constitution and Charter of Rights and Freedoms." },
+        { year: "Present", event: "Federal parliamentary democracy, bilingual, multicultural." }
+      ],
       images: [
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1bpgmbBm9gYuOgGFO3v7DXqtcFlHaYR4aSw&s"
       ]
@@ -212,7 +212,19 @@ function App() {
           <button onClick={() => setSelectedFact(null)}>⬅ Back</button>
           <h1>{selectedFact.title}</h1>
 
-          {selectedFact.title === "Famous People" || selectedFact.title === "History Timeline" ? (
+          {selectedFact.title === "History Timeline" ? (
+            <div className="timeline-container">
+              {selectedFact.description.map((item, idx) => (
+                <div key={idx} className="timeline-item">
+                  <div className="timeline-circle"></div>
+                  <div className="timeline-content">
+                    <div className="timeline-year">{item.year}</div>
+                    <div className="timeline-event">{item.event}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : selectedFact.title === "Famous People" ? (
             <ul className="fact-list">
               {selectedFact.description.trim().split("\n").map((line, idx) => (
                 <li key={idx}>{line.replace("-", "").trim()}</li>
