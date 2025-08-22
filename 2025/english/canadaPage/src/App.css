@@ -274,3 +274,12 @@ body {
   width: 0px;
   background: transparent;
 }
+img {
+  user-drag: none;       /* navegadores WebKit */
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;  /* evita arrastrar y seleccionar */
+}
