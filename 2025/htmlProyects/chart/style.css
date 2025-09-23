@@ -8,7 +8,7 @@ html, body {
     height: 100%;
     overflow: hidden;
     font-family: Arial, sans-serif;
-    background-color: #000;
+    background-color: #000000;
     color: #fff;
 }
 
@@ -21,7 +21,7 @@ main {
 form {
     width: 20%;
     min-width: 200px;
-    background-color: #111;
+    background-color: #000000;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -48,7 +48,7 @@ button {
 
 input,
 select {
-    background-color: #222;
+    background-color: #000000;
     color: #fff;
     border: 1px solid #900;
 }
@@ -71,7 +71,7 @@ button:hover {
 #grafico {
     width: 80%;
     height: 100%;
-    background-color: #111;
+    background-color: #000000;
     display: block;
     border-left: 2px solid #900;
 }

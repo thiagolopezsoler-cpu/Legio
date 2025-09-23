@@ -174,3 +174,48 @@ div[key] {
 .bought-btn:hover {
   background-color: #388e3c !important;
 }
+/* --- Estilo para los botones --- */
+button {
+  background-color: #1e88e5;   /* azul */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #1565c0;   /* azul más oscuro al pasar el mouse */
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Botón especial comprado/no comprado */
+.bought-btn {
+  background-color: #43a047; /* verde */
+}
+
+.to-buy-btn {
+  background-color: #e53935; /* rojo */
+}
+
+/* --- Estilo para el select --- */
+select {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  padding: 8px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  margin: 6px 0;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+  border-color: #1e88e5;
+  box-shadow: 0 0 5px #1e88e5;
+}
