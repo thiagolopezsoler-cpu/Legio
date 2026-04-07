@@ -4,12 +4,14 @@
 # por el usuario.
 # Muestra la secuencia Fibonacci resultante.
 
-n = int(input("dame un numero"))
+n = int(input("dame un numero "))
 def generador(n):
     secuencia = [0, 1]
     if n < 1:
-        print("ingresa un numero mayor a 1 entero")
+        print("ingresa un numero mayor a 1")
     else:
         for i in range(n):
             numero_nuevo = secuencia[i] + secuencia[i + 1]
-            secuencia.append(nuevo_nuevo)
+            secuencia.append(numero_nuevo)
+        print(secuencia)
+generador(n)

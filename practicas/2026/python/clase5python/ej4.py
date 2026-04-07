@@ -9,17 +9,14 @@
 
 contraseña = input("crea una contraseña ")
 
+contraseña = input("crea una contraseña: ")
+
 def validacion(contraseña):
-    mayuscula(contraseña)
-    minuscula(contraseña)
-    mas8(contraseña)
-    numero(contraseña)
-    especial(contraseña)
-    if mayuscula () and minuscula() and mas8() and numero() and especial():
+    if mayuscula(contraseña) and minuscula(contraseña) and mas8(contraseña) and numero(contraseña) and especial(contraseña):
         print("es segura")
     else:
         print("no es segura")
-        
+
 def mayuscula(contraseña):
     for i in range(len(contraseña)):
         if contraseña[i] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
@@ -28,6 +25,25 @@ def mayuscula(contraseña):
 
 def minuscula(contraseña):
     for i in range(len(contraseña)):
-        if contraseña[i] in "ABCDE":
+        if contraseña[i] in "abcdefghijklmnopqrstuvwxyz":
             return True
-    return True
+    return False
+
+def mas8(contraseña):
+    if len(contraseña) >= 8:
+        return True
+    return False
+
+def numero(contraseña):
+    for i in range(len(contraseña)):
+        if contraseña[i] in "0123456789":
+            return True
+    return False
+
+def especial(contraseña):
+    for i in range(len(contraseña)):
+        if contraseña[i] in "!@#$%&*":
+            return True
+    return False
+
+validacion(contraseña)
