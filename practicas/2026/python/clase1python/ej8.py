@@ -2,7 +2,7 @@
 # un número ingresado por el usuario es positivo,
 # negativo o cero, y también si es un número par o impar.
 
-numero = print("Ingresa un numero ")
+numero = int(input("Ingresa un numero "))
 
 if numero == 0:
     print(f"{numero} es 0")
@@ -15,3 +15,5 @@ if numero % 2 == 0:
     print("El numero es par")
 else:
     print("EL numero es impar")
+    
+#El error era que habia un print para pedir datos
