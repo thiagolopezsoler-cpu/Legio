@@ -1,4 +1,5 @@
 import time
+import random
 
 class Nodo:
     def __init__(self, nombre):
