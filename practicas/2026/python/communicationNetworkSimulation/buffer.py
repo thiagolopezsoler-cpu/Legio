@@ -44,6 +44,9 @@ servidor.agregar_conexion(cliente3)
 servidor.enviar_mensaje("Hola de nuevo a todos")
 
 def procesar_buffer():
-    numero_ramdon = random(0,3)
-    print(numero_ramdon)
+    numero_ramdon = random.randint(0,2)
+    a_eliminar = servidor.conexiones[numero_ramdon]
+    servidor.eliminar_conexion(a_eliminar)
+    print(f"paquete perdido {a_eliminar}")
+
 procesar_buffer()
