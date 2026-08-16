@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema de Metro</title>
+</head>
+
+<body>
+
+<h1>SISTEMA DE METRO</h1>
+
+<h2>Lineas</h2>
+
+{% for linea in lineas %}
+    <p>{{ linea.nombre }}</p>
+{% empty %}
+    <p>No hay lineas.</p>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login - Metro</title>
+
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login {
+            background: #222;
+            padding: 30px;
+            width: 300px;
+            border: 1px solid #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: red;
+            color: white;
+            border: none;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login">
+
+    <h1>SISTEMA DE METRO</h1>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="usuario"
+            placeholder="Usuario"
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+        >
+
+        <button type="submit">
+            Iniciar sesion
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

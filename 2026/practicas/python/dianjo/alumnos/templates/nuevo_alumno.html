@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Nuevo Alumno</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Lineas</h1>
+
+    {% for linea in lineas %}
+    <p>{{ linea.nombre }}</p>
+    {% endfor %}
+    <h1>Nuevo Alumno</h1>
+
+    <!-- Depuración: Mostrar el valor de 'guardado' -->
+    <p>Valor de guardado: {{ guardado }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Añadir Alumno">
+    </form>
+
+
+    {% if guardado %}
+    <div
+        style="padding: 15px; background-color: #dff0d8; color: #3c763d; border: 1px solid #d6e9c6; border-radius: 4px;">
+        Alumno guardado correctamente. ¿Quieres seguir cargando?
+        <a href="{% url 'nuevo_alumno' %}"
+            style="display: inline-block; padding: 6px 12px; background-color: #337ab7; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">Sí</a>
+        <a href="{% url 'listado_alumno' %}"
+            style="display: inline-block; padding: 6px 12px; background-color: #555; color: white; text-decoration: none; border-radius: 4px;">No</a>
+    </div>
+    {% endif %}
+
+
+</body>
+
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Sistema de Metro</title>
+
+    <style>
+
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        h1 {
+            color: red;
+        }
+
+        .contenedor {
+            display: flex;
+            gap: 30px;
+        }
+
+        .izquierda {
+            width: 55%;
+        }
+
+        .derecha {
+            width: 45%;
+        }
+
+        .caja {
+            background: #222;
+            border: 1px solid #555;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .linea {
+            background: #191919;
+            border: 1px solid #555;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .rojo {
+            color: red;
+        }
+
+        .verde {
+            color: green;
+        }
+
+        .gris {
+            color: #999;
+        }
+
+        a {
+            color: red;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<h1>SISTEMA DE METRO</h1>
+
+<p>
+    Usuario: {{ user.username }}
+    |
+    <a href="{% url 'logout' %}">
+        Cerrar sesion
+    </a>
+</p>
+
+<hr>
+
+
+<div class="contenedor">
+
+
+<!-- ================= LINEAS ================= -->
+
+<div class="izquierda">
+
+    <h2>Lineas Activas</h2>
+
+    {% for linea in lineas %}
+
+    <div class="linea">
+
+        <h2>{{ linea.nombre }}</h2>
+
+        <h3>Estaciones</h3>
+
+        {% for estacion in linea.estacion_set.all %}
+
+            <p class="gris">
+
+                {{ forloop.counter }}.
+                {{ estacion.nombre }}
+
+                [Accesos:
+                {{ estacion.accesos }}]
+
+            </p>
+
+        {% empty %}
+
+            <p class="gris">
+                Sin estaciones
+            </p>
+
+        {% endfor %}
+
+
+        <h3>Trenes asignados</h3>
+
+        {% for tren in linea.tren_set.all %}
+
+            <p>
+                {{ tren.id_tren }}
+            </p>
+
+        {% empty %}
+
+            <p class="gris">
+                Sin trenes asignados
+            </p>
+
+        {% endfor %}
+
+
+        {% if linea.validar_flota %}
+
+            <p class="verde">
+                FLOTA OK
+                ({{ linea.tren_set.count }} trenes)
+            </p>
+
+        {% else %}
+
+            <p class="rojo">
+                Flota incorrecta
+                (Min:
+                {{ linea.estacion_set.count }}
+                /
+                Max:
+                {{ linea.estacion_set.count|add:linea.estacion_set.count }})
+            </p>
+
+        {% endif %}
+
+
+        <p class="gris">
+
+            Accesos totales:
+
+            {{ linea.obtener_todos_accesos|join:" | " }}
+
+        </p>
+
+
+        <a href="{% url 'eliminar_linea' linea.id %}">
+            Eliminar linea
+        </a>
+
+    </div>
+
+    {% empty %}
+
+        <p>No existen lineas.</p>
+
+    {% endfor %}
+
+</div>
+
+
+<!-- ================= PANEL DERECHO ================= -->
+
+<div class="derecha">
+
+
+<!-- CREAR LINEA -->
+
+<div class="caja">
+
+    <h2>Crear Linea</h2>
+
+    <form method="POST" action="{% url 'crear_linea' %}">
+
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+        >
+
+        <button>
+            Crear
+        </button>
+
+    </form>
+
+</div>
+
+
+<!-- CREAR ESTACION -->
+
+<div class="caja">
+
+    <h2>Añadir Estacion</h2>
+
+    <form method="POST" action="{% url 'crear_estacion' %}">
+
+        {% csrf_token %}
+
+        <select name="linea">
+
+            {% for linea in lineas %}
+
+                <option value="{{ linea.id }}">
+                    {{ linea.nombre }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+        <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre estacion"
+        >
+
+        <input
+            type="text"
+            name="accesos"
+            placeholder="Accesos separados por comas"
+        >
+
+        <button>
+            Insertar
+        </button>
+
+    </form>
+
+</div>
+
+
+<!-- CREAR TREN -->
+
+<div class="caja">
+
+    <h2>Inventario Global de Trenes</h2>
+
+    <form method="POST" action="{% url 'crear_tren' %}">
+
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="id_tren"
+            placeholder="ID Tren"
+        >
+
+        <button>
+            Registrar
+        </button>
+
+    </form>
+
+
+    <h3>Estado de unidades</h3>
+
+    {% for tren in trenes %}
+
+        <p>
+
+            {{ tren.id_tren }}
+
+            {% if tren.linea %}
+
+                ➜ {{ tren.linea.nombre }}
+
+            {% else %}
+
+                ➜ En Cochera
+
+            {% endif %}
+
+            |
+
+            <a href="{% url 'eliminar_tren' tren.id %}">
+                Eliminar
+            </a>
+
+        </p>
+
+    {% empty %}
+
+        <p class="gris">
+            No existen trenes.
+        </p>
+
+    {% endfor %}
+
+</div>
+
+
+<!-- MOVER TREN -->
+
+<div class="caja">
+
+    <h2>Desplegar / Mover Tren</h2>
+
+    <form method="POST" action="{% url 'mover_tren' %}">
+
+        {% csrf_token %}
+
+        <select name="tren">
+
+            {% for tren in trenes %}
+
+                <option value="{{ tren.id }}">
+                    {{ tren.id_tren }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <select name="destino">
+
+            <option value="NINGUNA">
+                Retirar a Cochera
+            </option>
+
+            {% for linea in lineas %}
+
+                <option value="{{ linea.id }}">
+                    {{ linea.nombre }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <button>
+            Ejecutar Movimiento
+        </button>
+
+    </form>
+
+</div>
+
+
+</div>
+
+</div>
+
+</body>
+
+</html>
