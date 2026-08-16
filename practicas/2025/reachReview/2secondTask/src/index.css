@@ -1,0 +1,20 @@
+body{
+  color: white;
+  background-color: black;
+}
+
+
+.all{
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.text{
+  color: red;
+}
+
+.input{
+  background-color: black;
+  color: white;
+}
