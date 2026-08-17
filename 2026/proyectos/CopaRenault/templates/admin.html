@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Copa Renault</title>
+</head>
+
+<body>
+
+    <h1>Panel de administración</h1>
+
+    <p>Bienvenido, colaborador.</p>
+
+    <h2>Partidos</h2>
+
+    {% if partidos %}
+
+    {% for partido in partidos %}
+
+    <div class="admin-card">
+        <h3>Partido #{{ partido.id_partido }}</h3>
+
+        <p>Equipo 1: {{ partido.Equipo_1 }}</p>
+        <p>Equipo 2: {{ partido.Equipo_2 }}</p>
+        <p>Fase: {{ partido.Fase }}</p>
+        <p>
+            Horario:
+            {{ partido.Horario_inicio.strftime("%H:%M") }}
+            -
+            {{ partido.Horario_final.strftime("%H:%M") }}
+        </p>
+        <a href="/admin/partido/{{ partido.id_partido }}">
+            <button>Editar partido</button>
+        </a>
+    </div>
+
+    <hr>
+
+    {% endfor %}
+
+    {% else %}
+
+    <p>No hay partidos cargados.</p>
+
+    {% endif %}
+
+    <a href="/inicio-sesion">Volver</a>
+
+</body>
+
+</html>

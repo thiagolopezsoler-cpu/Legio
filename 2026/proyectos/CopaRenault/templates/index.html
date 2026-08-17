@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Copa Renault</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Copa Renault</h1>
+        <p>Bienvenido a la Copa Renault</p>
+    </header>
+
+    <main>
+
+        <h2>Menú principal</h2>
+
+        <nav>
+            <ul>
+                <li><a href="/partidos">Partidos</a></li>
+                <li><a href="/comida">Comida</a></li>
+                <li><a href="/cantina">Cantina</a></li>
+                <li><a href="#">Mapa</a></li>
+                <li><a href="/sponsors">Sponsors</a></li>
+                <li><a href="/entradas">Comprar entrada</a></li>
+                <li><a href="/mis-entradas">Mis entradas</a></li>
+                <li><a href="#">Inscripción</a></li>
+                <li><a href="#">Documentación</a></li>
+            </ul>
+        </nav>
+
+        <br>
+
+        <a href="/login">Iniciar sesión</a>
+        <br>
+        <a href="/registro">Crear una cuenta</a>
+
+    </main>
+
+</body>
+
+</html>

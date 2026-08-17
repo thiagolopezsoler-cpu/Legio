@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sponsors - Copa Renault</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Copa Renault</h1>
+        <p>Sponsors</p>
+    </header>
+
+    <main>
+
+        <h2>Nuestros sponsors</h2>
+
+        {% if sponsors %}
+
+            {% for sponsor in sponsors %}
+
+                <article>
+                    <h3>{{ sponsor.Nombre }}</h3>
+
+                    {% if sponsor.Descripcion %}
+                        <p>{{ sponsor.Descripcion }}</p>
+                    {% endif %}
+
+                    {% if sponsor.Enlace %}
+                        <a href="{{ sponsor.Enlace }}" target="_blank">
+                            Visitar sitio
+                        </a>
+                    {% endif %}
+                </article>
+
+                <hr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No hay sponsors cargados.</p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="/">Volver al inicio</a>
+
+    </main>
+
+</body>
+
+</html>

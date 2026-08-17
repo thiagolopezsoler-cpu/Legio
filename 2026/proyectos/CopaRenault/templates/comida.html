@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comidas - Copa Renault</title>
+</head>
+
+<body>
+
+    <h1>Horarios de comida</h1>
+
+    {% if comidas %}
+
+        {% for comida in comidas %}
+
+            <div>
+                <h2>{{ comida.equipo }}</h2>
+
+                <p>
+                    Horario:
+                    {{ comida.inicio.strftime("%H:%M") }}
+                    -
+                    {{ comida.final.strftime("%H:%M") }}
+                </p>
+
+                <p>Zona: {{ comida.zona }}</p>
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No hay horarios de comida cargados.</p>
+
+    {% endif %}
+
+    <a href="/inicio-sesion">Volver</a>
+
+</body>
+</html>

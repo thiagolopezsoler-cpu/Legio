@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Editar partido - Copa Renault</title>
+</head>
+
+<body>
+
+    <h1>Editar partido</h1>
+
+    <p>Partido #{{ partido.id_partido }}</p>
+
+    <form method="POST">
+
+        <label for="fase">Fase</label>
+        <input
+            type="text"
+            id="fase"
+            name="fase"
+            value="{{ partido.Fase or '' }}"
+            required
+        >
+
+        <br><br>
+
+        <label for="horario_inicio">Horario de inicio</label>
+        <input
+            type="time"
+            id="horario_inicio"
+            name="horario_inicio"
+            value="{{ partido.Horario_inicio.strftime('%H:%M') if partido.Horario_inicio else '' }}"
+            required
+        >
+
+        <br><br>
+
+        <label for="horario_final">Horario final</label>
+        <input
+            type="time"
+            id="horario_final"
+            name="horario_final"
+            value="{{ partido.Horario_final.strftime('%H:%M') if partido.Horario_final else '' }}"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">Guardar cambios</button>
+
+    </form>
+
+    <br>
+
+    <a href="/admin">Cancelar</a>
+
+</body>
+
+</html>

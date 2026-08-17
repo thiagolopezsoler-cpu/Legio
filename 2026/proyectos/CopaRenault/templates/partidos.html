@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Partidos - Copa Renault</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Copa Renault</h1>
+        <p>Fixture de partidos</p>
+    </header>
+
+    <main>
+
+        <h2>Partidos</h2>
+
+        <div class="filtros">
+            <a href="/partidos">Todos</a>
+            <a href="/partidos?deporte=F">Fútbol</a>
+        </div>
+
+        <section class="partidos">
+
+            {% if partidos %}
+
+                {% for partido in partidos %}
+
+                    <article class="partido">
+
+                        <p class="fase">
+                            {{ partido.fase }}
+                        </p>
+
+                        <h3>
+                            {{ partido.equipo1 }}
+                            <span>vs</span>
+                            {{ partido.equipo2 }}
+                        </h3>
+
+                        <p>
+                            {{ partido.inicio.strftime("%H:%M") }}
+                            -
+                            {{ partido.final.strftime("%H:%M") }}
+                        </p>
+
+                    </article>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p>No hay partidos cargados.</p>
+
+            {% endif %}
+
+        </section>
+
+        <br>
+
+        <a href="/">Volver al inicio</a>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mis entradas - Copa Renault</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Copa Renault</h1>
+        <p>Mis entradas</p>
+    </header>
+
+    <main>
+
+        {% if entradas %}
+
+        {% for entrada in entradas %}
+
+        <article>
+            <h2>Entrada #{{ entrada.id_entrada }}</h2>
+
+            <p>Tipo: {{ entrada.tipo }}</p>
+
+            <p>Precio: ${{ entrada.precio }}</p>
+
+            <p>Estado: {{ entrada.estado }}</p>
+            {% if entrada.codigo_qr %}
+            <p>Código de entrada:</p>
+
+            <img src="{{ url_for('static', filename='qr/entrada_' ~ entrada.id_entrada ~ '.png') }}"
+                alt="QR de la entrada" width="200">
+            {% endif %}
+            {% if entrada.fecha_compra %}
+            <p>
+                Compra:
+                {{ entrada.fecha_compra.strftime("%d/%m/%Y %H:%M") }}
+            </p>
+            {% endif %}
+        </article>
+
+        <hr>
+
+        {% endfor %}
+
+        {% else %}
+
+        <p>No tenés entradas compradas.</p>
+
+        {% endif %}
+
+        <br>
+
+        <a href="/inicio-sesion">Volver a mi cuenta</a>
+
+    </main>
+
+</body>
+
+</html>

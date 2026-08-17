@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cantina - Copa Renault</title>
+</head>
+
+<body>
+
+    <h1>Cantina</h1>
+
+    {% if productos %}
+
+        {% for producto in productos %}
+
+            <div>
+                <h2>{{ producto.Nombre }}</h2>
+
+                <p>{{ producto.Descripcion }}</p>
+
+                <p>
+                    Precio: ${{ producto.Precio }}
+                </p>
+            </div>
+
+            <hr>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No hay productos disponibles.</p>
+
+    {% endif %}
+
+    <a href="/inicio-sesion">Volver</a>
+
+</body>
+</html>
