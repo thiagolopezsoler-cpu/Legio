@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copa Renault</title>
@@ -15,6 +16,12 @@
 
     <nav>
         <ul>
+            {% if rango == "C" %}
+            <a href="{{ url_for('admin') }}">Administrar Copa Renault</a>
+            <a href="{{ url_for('admin_equipos') }}">Equipos</a>
+            <a href="{{ url_for('admin_jugadores') }}">Jugadores</a>
+            <a href="{{ url_for('admin') }}">Partidos y horarios</a>
+            {% endif %}
             <li><a href="/">Partidos</a></li>
             <li><a href="/comida">Comida</a></li>
             <li><a href="/cantina">Cantina</a></li>

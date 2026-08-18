@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Equipos - Administración</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <h1>Copa Renault</h1>
+        <p>Administración de equipos</p>
+    </header>
+
+    <main>
+
+        <h2>Equipos registrados</h2>
+
+        {% if equipos %}
+
+            {% for equipo in equipos %}
+
+                <article class="admin-card">
+
+                    <h3>{{ equipo.Colegio }}</h3>
+
+                    <p>Deporte: {{ equipo.Deporte }}</p>
+                    <p>Categoría: {{ equipo.Categoria }}</p>
+                    <p>Sexo: {{ equipo.Sexo }}</p>
+                    <p>ID: {{ equipo.id_equipo }}</p>
+
+                </article>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No hay equipos registrados.</p>
+
+        {% endif %}
+
+        <a href="/admin">
+            <button>Volver al panel</button>
+        </a>
+
+    </main>
+
+</body>
+
+</html>

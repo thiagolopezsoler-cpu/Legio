@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jugadores - Copa Renault</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Copa Renault</h1>
+        <p>Administración de jugadores</p>
+    </header>
+
+    <main>
+
+        <h2>Jugadores registrados</h2>
+
+        {% if jugadores %}
+
+        {% for jugador in jugadores %}
+
+        <article class="admin-card">
+
+            <h3>{{ jugador.Nombre }}</h3>
+
+            <p>DNI: {{ jugador.DNI }}</p>
+            <p>Email: {{ jugador.Email }}</p>
+            <p>Teléfono: {{ jugador.Telefono }}</p>
+            <p>Equipo ID: {{ jugador.id_equipo }}</p>
+
+        </article>
+
+        {% endfor %}
+
+        {% else %}
+
+        <p>No hay jugadores registrados.</p>
+
+        {% endif %}
+        <a href="/admin/jugador/nuevo">
+            <button>Agregar jugador</button>
+        </a>
+        <a href="/admin">
+            <button>Volver al panel</button>
+        </a>
+
+    </main>
+
+</body>
+
+</html>

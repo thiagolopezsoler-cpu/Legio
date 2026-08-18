@@ -14,6 +14,19 @@ app.secret_key = "clave-copa-renault"
 db = SQLAlchemy(app)
 
 
+class Jugador(db.Model):
+    __tablename__ = "jugador"
+
+    id_jugador = db.Column(db.Integer, primary_key=True)
+    id_equipo = db.Column(db.Integer)
+    Nombre = db.Column(db.String(50))
+    DNI = db.Column(db.String(10))
+    Telefono = db.Column(db.String(15))
+    Email = db.Column(db.String(40))
+    Comida_especial = db.Column(db.String(3))
+    Fecha_nacimiento = db.Column(db.Date)
+    Infracciones = db.Column(db.String(10))
+
 class Entrada(db.Model):
     __tablename__ = "entrada"
 
@@ -46,6 +59,20 @@ def admin():
     partidos = Partido.query.all()
 
     return render_template("admin.html", partidos=partidos)
+
+@app.route("/admin/equipos")
+def admin_equipos():
+    if "usuario" not in session:
+        return redirect(url_for("login_page"))
+
+    usuario = Usuario.query.filter_by(Email=session["usuario"]).first()
+
+    if not usuario or usuario.rango != "C":
+        return "No tenés permisos para acceder a esta sección", 403
+
+    equipos = Equipo.query.all()
+
+    return render_template("admin_equipos.html", equipos=equipos)
 
 @app.route("/admin/partido/<int:id_partido>", methods=["GET"])
 def editar_partido(id_partido):
@@ -153,6 +180,66 @@ def comprar_entrada():
     except Exception as e:
         db.session.rollback()
         return f"Error al comprar la entrada: {e}"
+
+@app.route("/admin/jugadores")
+def admin_jugadores():
+    if "usuario" not in session:
+        return redirect(url_for("login_page"))
+
+    usuario = Usuario.query.filter_by(Email=session["usuario"]).first()
+
+    if not usuario or usuario.rango != "C":
+        return "No tenés permisos para acceder a esta sección", 403
+
+    jugadores = Jugador.query.all()
+
+    return render_template("admin_jugadores.html", jugadores=jugadores)
+
+@app.route("/admin/jugador/nuevo")
+def nuevo_jugador():
+    if "usuario" not in session:
+        return redirect(url_for("login_page"))
+
+    usuario = Usuario.query.filter_by(Email=session["usuario"]).first()
+
+    if not usuario or usuario.rango != "C":
+        return "No tenés permisos para acceder a esta sección", 403
+
+    equipos = Equipo.query.all()
+
+    return render_template("nuevo_jugador.html", equipos=equipos)
+
+
+@app.route("/admin/jugador/nuevo", methods=["POST"])
+def guardar_jugador():
+    if "usuario" not in session:
+        return redirect(url_for("login_page"))
+
+    usuario = Usuario.query.filter_by(Email=session["usuario"]).first()
+
+    if not usuario or usuario.rango != "C":
+        return "No tenés permisos para realizar esta acción", 403
+
+    nuevo_jugador = Jugador(
+        id_equipo=request.form["id_equipo"],
+        Nombre=request.form["Nombre"],
+        DNI=request.form["DNI"],
+        Telefono=request.form["Telefono"],
+        Email=request.form["Email"],
+        Comida_especial=request.form["Comida_especial"],
+        Fecha_nacimiento=request.form["Fecha_nacimiento"],
+        Infracciones="0"
+    )
+
+    try:
+        db.session.add(nuevo_jugador)
+        db.session.commit()
+
+        return redirect(url_for("admin_jugadores"))
+
+    except Exception as e:
+        db.session.rollback()
+        return f"Error al guardar el jugador: {e}"
 
 @app.route("/test-db")
 def test_db():
@@ -281,7 +368,13 @@ def inicio_sesion():
     if "usuario" not in session:
         return redirect(url_for("inicio"))
 
-    return render_template("inicio.html", nombre=session["nombre"])
+    usuario = Usuario.query.filter_by(Email=session["usuario"]).first()
+
+    return render_template(
+        "inicio.html",
+        nombre=session["nombre"],
+        rango=usuario.rango
+    )
 
 @app.route("/comida")
 def comida():
