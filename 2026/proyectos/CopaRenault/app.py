@@ -7,7 +7,7 @@ import uuid
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:@localhost/RenaultCup"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:@localhost/RenaultCup"   
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = "clave-copa-renault"
 
@@ -46,7 +46,7 @@ class Usuario(db.Model):
     Contraseña = db.Column(db.String(100))
     rango = db.Column(db.String(20))
 
-@app.route("/admin")
+@app.route("/admin") #cheu legio vos encargate de la parte de la admin y de redireccionar como los /templates pls
 def admin():
     if "usuario" not in session:
         return redirect(url_for("login_page"))
@@ -67,7 +67,7 @@ def admin_equipos():
 
     usuario = Usuario.query.filter_by(Email=session["usuario"]).first()
 
-    if not usuario or usuario.rango != "C":
+    if not usuario or usuario.rango != "C": #estas son alertas
         return "No tenés permisos para acceder a esta sección", 403
 
     equipos = Equipo.query.all()

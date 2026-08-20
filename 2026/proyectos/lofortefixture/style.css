@@ -1,0 +1,137 @@
+/* Estilos Copa Renault */
+/* Paleta basada en escala de amarillos, negros y grises */
+
+:root {
+    --amarillo: #FFD100;
+    --amarillo-oscuro: #C9A227;
+    --negro: #0D0D0D;
+    --gris-oscuro: #1A1A1A;
+    --gris-medio: #333333;
+    --gris-claro: #808080;
+    --blanco: #F2F2F2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--negro);
+    color: var(--blanco);
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    margin: 0;
+}
+
+h1 {
+    color: var(--amarillo);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 3px solid var(--amarillo);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: var(--amarillo-oscuro);
+    text-align: center;
+    margin-top: 0;
+}
+
+.menu {
+    text-align: center;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: var(--gris-oscuro);
+}
+
+th {
+    background-color: var(--amarillo);
+    color: var(--negro);
+    padding: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid var(--gris-medio);
+    text-align: center;
+    color: var(--blanco);
+}
+
+tr:nth-child(even) td {
+    background-color: var(--gris-medio);
+}
+
+tr:hover td {
+    background-color: var(--gris-claro);
+    color: var(--negro);
+}
+
+.boton {
+    background-color: var(--amarillo);
+    color: var(--negro);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 5px;
+    font-weight: bold;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.boton:hover {
+    background-color: var(--amarillo-oscuro);
+    color: var(--blanco);
+}
+
+a {
+    text-decoration: none;
+}
+
+.formulario {
+    max-width: 400px;
+    margin: 20px auto;
+    background-color: var(--gris-oscuro);
+    padding: 20px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario label {
+    color: var(--amarillo);
+    margin-top: 12px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.formulario input,
+.formulario select {
+    background-color: var(--negro);
+    color: var(--blanco);
+    border: 1px solid var(--gris-medio);
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.formulario input:focus,
+.formulario select:focus {
+    outline: none;
+    border-color: var(--amarillo);
+}
+
+.formulario .boton {
+    margin-top: 20px;
+    align-self: center;
+}
