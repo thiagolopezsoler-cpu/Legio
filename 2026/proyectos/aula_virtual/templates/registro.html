@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<div class="formulario">
+
+    <h1>Crear cuenta</h1>
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre"
+            required
+        >
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            required
+        >
+
+        <select name="rol" required>
+            <option value="">Selecciona tu tipo de usuario</option>
+            <option value="alumno">Alumno</option>
+            <option value="profesor">Profesor</option>
+        </select>
+
+        <button
+            type="submit"
+            class="boton"
+        >
+            Registrarse
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

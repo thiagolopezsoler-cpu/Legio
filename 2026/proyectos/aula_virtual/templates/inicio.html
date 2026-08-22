@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<section class="hero">
+
+    <h1>Aula Virtual</h1>
+
+    <p>
+        Tu espacio para aprender, entregar tareas y consultar tus materias.
+    </p>
+
+    {% if current_user.is_authenticated %}
+
+        <a href="{{ url_for('dashboard') }}" class="boton">
+            Ir al aula
+        </a>
+
+    {% else %}
+
+        <a href="{{ url_for('login') }}" class="boton">
+            Iniciar sesion
+        </a>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<section class="pagina">
+
+    <div class="titulo-pagina">
+
+        <div>
+
+            <h1>{{ materia.nombre }}</h1>
+
+            <p>{{ materia.descripcion }}</p>
+
+        </div>
+
+        <a
+            href="{{ url_for('crear_tarea', materia_id=materia.id) }}"
+            class="boton"
+        >
+            + Nueva tarea
+        </a>
+
+    </div>
+
+
+    <h2>Tareas</h2>
+
+    {% if tareas %}
+
+        <div class="grid">
+
+            {% for tarea in tareas %}
+
+                <div class="tarjeta">
+
+                    <h3>{{ tarea.titulo }}</h3>
+
+                    <p>
+                        {{ tarea.descripcion }}
+                    </p>
+
+                    <p>
+                        Entrega:
+                        {{ tarea.fecha_entrega }}
+                    </p>
+
+                    <div class="acciones">
+
+                        <a
+                            href="{{ url_for('editar_tarea', tarea_id=tarea.id) }}"
+                            class="boton"
+                        >
+                            Editar
+                        </a>
+
+                        <a
+                            href="{{ url_for('eliminar_tarea', tarea_id=tarea.id) }}"
+                            class="boton eliminar"
+                        >
+                            Eliminar
+                        </a>
+
+                        <a
+                            href="{{ url_for('ver_entregas', tarea_id=tarea.id) }}"
+                            class="boton"
+                        >
+                            Entregas
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p>Todavia no hay tareas.</p>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

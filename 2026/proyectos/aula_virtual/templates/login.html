@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<div class="formulario">
+
+    <h1>Iniciar sesion</h1>
+
+    <form method="POST">
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            required
+        >
+
+        <button class="boton" type="submit">
+            Entrar
+        </button>
+
+    </form>
+
+    <p>
+        ¿No tenes cuenta?
+        <a href="{{ url_for('registro') }}">
+            Registrate
+        </a>
+    </p>
+
+</div>
+
+{% endblock %}

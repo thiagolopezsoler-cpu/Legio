@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Login - Metro</title>
+    <title>Registro - Metro</title>
 
     <style>
         body {
@@ -40,6 +40,13 @@
         .error {
             color: red;
         }
+
+        a {
+            display: block;
+            margin-top: 15px;
+            color: white;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -47,7 +54,7 @@
 
 <div class="login">
 
-    <h1>SISTEMA DE METRO</h1>
+    <h1>CREAR CUENTA</h1>
 
     {% if error %}
         <p class="error">{{ error }}</p>
@@ -70,16 +77,14 @@
         >
 
         <button type="submit">
-            Iniciar sesion
+            Registrarse
         </button>
 
-        <h1></h1>
-
-        <a class="boton" href="{% url 'registro' %}">
-            Crear una cuenta
-        </a>
-
     </form>
+
+    <a href="{% url 'login' %}">
+        Volver al login
+    </a>
 
 </div>
 

@@ -1,9 +1,28 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
 from .models import Linea, Estacion, Tren
+from django.contrib.auth.models import User
 
+
+def registro_view(request):
+    if request.method == "POST":
+        usuario = request.POST["usuario"].strip()
+        password = request.POST["password"]
+
+        if usuario and password:
+            if not User.objects.filter(username=usuario).exists():
+                User.objects.create_user(
+                    username=usuario,
+                    password=password
+                )
+                return redirect("login")
+
+        return render(request, "registro.html", {
+            "error": "El usuario ya existe o los datos son incorrectos"
+        })
+
+    return render(request, "registro.html")
 
 def login_view(request):
 
@@ -18,7 +37,7 @@ def login_view(request):
         user = authenticate(
             request,
             username=usuario,
-            password=password
+            password=password   
         )
 
         if user is not None:

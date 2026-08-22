@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<section class="pagina">
+
+    <div class="titulo-pagina">
+
+        <h1>Mis materias</h1>
+
+        <a
+            href="{{ url_for('crear_materia') }}"
+            class="boton"
+        >
+            + Crear materia
+        </a>
+
+    </div>
+
+
+    {% if materias %}
+
+        <div class="grid">
+
+            {% for materia in materias %}
+
+                <div class="tarjeta">
+
+                    <h2>{{ materia.nombre }}</h2>
+
+                    <p>{{ materia.descripcion }}</p>
+
+                    <div class="acciones">
+
+                        <a
+                            href="{{ url_for('editar_materia', materia_id=materia.id) }}"
+                            class="boton"
+                        >
+                            Editar
+                        </a>
+
+                        <a
+                            href="{{ url_for('eliminar_materia', materia_id=materia.id) }}"
+                            class="boton eliminar"
+                        >
+                            Eliminar
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <p>Todavia no creaste ninguna materia.</p>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

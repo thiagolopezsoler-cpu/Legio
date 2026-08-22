@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<section class="dashboard">
+
+    <h1>Hola, {{ current_user.nombre }}</h1>
+
+    {% if current_user.rol == "alumno" %}
+
+        <p>Estas son tus opciones como alumno.</p>
+
+        <a href="{{ url_for('materias') }}" class="boton">
+            Mis materias
+        </a>
+
+    {% elif current_user.rol == "profesor" %}
+
+        <p>Estas son tus opciones como profesor.</p>
+
+        <a href="{{ url_for('materias_profesor') }}" class="boton">
+            Gestionar materias
+        </a>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}
