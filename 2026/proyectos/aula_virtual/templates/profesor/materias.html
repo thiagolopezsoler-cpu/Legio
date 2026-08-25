@@ -8,15 +8,11 @@
 
         <h1>Mis materias</h1>
 
-        <a
-            href="{{ url_for('crear_materia') }}"
-            class="boton"
-        >
-            + Crear materia
+        <a href="{{ url_for('crear_materia') }}" class="boton">
+            + Crear curso
         </a>
 
     </div>
-
 
     {% if materias %}
 
@@ -46,6 +42,13 @@
                             Eliminar
                         </a>
 
+                        <a
+                            href="{{ url_for('gestionar_materia', materia_id=materia.id) }}"
+                            class="boton"
+                        >
+                            Tareas
+                        </a>
+
                     </div>
 
                 </div>
@@ -56,7 +59,7 @@
 
     {% else %}
 
-        <p>Todavia no creaste ninguna materia.</p>
+        <p>Todavia no tenes ningun curso.</p>
 
     {% endif %}
 

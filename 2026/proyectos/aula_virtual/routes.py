@@ -1,23 +1,74 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
-
+import os
+from werkzeug.utils import secure_filename
 from app import app
 from extensions import db
 from models import Usuario, Materia, Inscripcion, Tarea, Entrega
+from flask import send_from_directory
+import os
+from werkzeug.utils import secure_filename
+import random
+import string
+import random
+import string
 
+@app.route("/cursos")
+@login_required
+def cursos():
 
-# =========================
-# INICIO
-# =========================
+    if current_user.rol != "alumno":
+        return "No tenes permiso para acceder"
+
+    materias = Materia.query.all()
+
+    inscripciones = Inscripcion.query.filter_by(
+        alumno_id=current_user.id
+    ).all()
+
+    materias_inscriptas = [
+        inscripcion.materia_id
+        for inscripcion in inscripciones
+    ]
+
+    return render_template(
+        "cursos.html",
+        materias=materias,
+        materias_inscriptas=materias_inscriptas
+    )
+
+@app.route("/tarea/<int:tarea_id>/descargar")
+@login_required
+def descargar_tarea(tarea_id):
+
+    if current_user.rol != "alumno":
+        return "No tenes permiso"
+
+    tarea = Tarea.query.get_or_404(tarea_id)
+
+    inscripcion = Inscripcion.query.filter_by(
+        alumno_id=current_user.id,
+        materia_id=tarea.materia_id
+    ).first()
+
+    if not inscripcion:
+        return "No estas inscripto en esta materia"
+
+    if not tarea.archivo:
+        return "Esta tarea no tiene archivo"
+
+    return send_from_directory(
+        "uploads/tareas",
+        tarea.archivo,
+        as_attachment=True
+    )
+
 
 @app.route("/")
 def inicio():
     return render_template("inicio.html")
 
 
-# =========================
-# REGISTRO
-# =========================
 
 @app.route("/registro", methods=["GET", "POST"])
 def registro():
@@ -127,6 +178,29 @@ def materias():
         materias=materias
     )
 
+@app.route("/materias/disponibles")
+@login_required
+def materias_disponibles():
+
+    if current_user.rol != "alumno":
+        return "No tenes permiso para acceder"
+
+    materias = Materia.query.all()
+
+    inscripciones = Inscripcion.query.filter_by(
+        alumno_id=current_user.id
+    ).all()
+
+    materias_inscriptas = [
+        inscripcion.materia_id
+        for inscripcion in inscripciones
+    ]
+
+    return render_template(
+        "materias_disponibles.html",
+        materias=materias,
+        materias_inscriptas=materias_inscriptas
+    )
 
 @app.route("/materia/<int:materia_id>")
 @login_required
@@ -186,7 +260,6 @@ def inscribirse(materia_id):
 # =========================================================
 # PROFESOR - MATERIAS
 # =========================================================
-
 @app.route("/profesor/materias")
 @login_required
 def materias_profesor():
@@ -209,7 +282,7 @@ def materias_profesor():
 def crear_materia():
 
     if current_user.rol != "profesor":
-        return "No tenes permiso para acceder"
+        return "No tenes permiso para crear cursos"
 
     if request.method == "POST":
 
@@ -225,13 +298,15 @@ def crear_materia():
         db.session.add(materia)
         db.session.commit()
 
-        return redirect(url_for("materias_profesor"))
+        return redirect(url_for(
+            "materias_profesor"
+        ))
 
     return render_template(
         "profesor/materia.html",
-        materia=None
+        materia=None,
+        tareas=[]
     )
-
 
 @app.route(
     "/profesor/materia/<int:materia_id>/editar",
@@ -306,10 +381,33 @@ def crear_tarea(materia_id):
         descripcion = request.form["descripcion"]
         fecha_entrega = request.form["fecha_entrega"]
 
+        archivo = request.files.get("archivo")
+
+        nombre_archivo = None
+
+        if archivo and archivo.filename:
+
+            nombre_archivo = secure_filename(archivo.filename)
+
+            carpeta = os.path.join(
+                "uploads",
+                "tareas"
+            )
+
+            os.makedirs(carpeta, exist_ok=True)
+
+            ruta = os.path.join(
+                carpeta,
+                nombre_archivo
+            )
+
+            archivo.save(ruta)
+
         tarea = Tarea(
             titulo=titulo,
             descripcion=descripcion,
             fecha_entrega=fecha_entrega,
+            archivo=nombre_archivo,
             materia_id=materia.id
         )
 
@@ -328,7 +426,6 @@ def crear_tarea(materia_id):
         tarea=None,
         materia=materia
     )
-
 
 @app.route(
     "/profesor/materia/<int:materia_id>/gestionar"
@@ -482,7 +579,30 @@ def entregar_tarea(tarea_id):
     if not inscripcion:
         return "No estas inscripto en esta materia"
 
-    contenido = request.form["contenido"]
+    archivo = request.files.get("archivo")
+
+    if not archivo or not archivo.filename:
+        return "Tenes que seleccionar un archivo"
+
+    nombre_archivo = secure_filename(archivo.filename)
+
+    carpeta = os.path.join(
+        "uploads",
+        "entregas"
+    )
+
+    os.makedirs(carpeta, exist_ok=True)
+
+    nombre_final = (
+        f"{current_user.id}_{tarea.id}_{nombre_archivo}"
+    )
+
+    ruta = os.path.join(
+        carpeta,
+        nombre_final
+    )
+
+    archivo.save(ruta)
 
     entrega = Entrega.query.filter_by(
         tarea_id=tarea.id,
@@ -491,12 +611,12 @@ def entregar_tarea(tarea_id):
 
     if entrega:
 
-        entrega.archivo = contenido
+        entrega.archivo = nombre_final
 
     else:
 
         entrega = Entrega(
-            archivo=contenido,
+            archivo=nombre_final,
             tarea_id=tarea.id,
             alumno_id=current_user.id
         )
@@ -511,11 +631,6 @@ def entregar_tarea(tarea_id):
             tarea_id=tarea.id
         )
     )
-
-
-# =========================================================
-# PROFESOR - VER ENTREGAS
-# =========================================================
 
 @app.route(
     "/profesor/tarea/<int:tarea_id>/entregas"
@@ -587,3 +702,33 @@ def calificar_entrega(entrega_id):
             tarea_id=tarea.id
         )
     )
+
+@app.route("/perfil", methods=["GET", "POST"])
+@login_required
+def perfil():
+
+    if request.method == "POST":
+
+        current_user.nombre = request.form["nombre"]
+        current_user.email = request.form["email"]
+
+        db.session.commit()
+
+        return redirect(url_for("perfil"))
+
+    return render_template("perfil.html")
+
+@app.route("/perfil/rol", methods=["POST"])
+@login_required
+def cambiar_rol():
+
+    nuevo_rol = request.form["rol"]
+
+    if nuevo_rol not in ["alumno", "profesor"]:
+        return "Rol no valido"
+
+    current_user.rol = nuevo_rol
+
+    db.session.commit()
+
+    return redirect(url_for("perfil"))

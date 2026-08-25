@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
+
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +12,11 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
+
 </head>
 
 <body>
+
 
     <header>
 
@@ -24,23 +28,47 @@
 
             {% if current_user.is_authenticated %}
 
-                <a href="{{ url_for('dashboard') }}">
-                    Inicio
-                </a>
+            <a href="{{ url_for('dashboard') }}">
+                Inicio
+            </a>
 
-                <a href="{{ url_for('logout') }}">
-                    Cerrar sesion
-                </a>
+
+            {% if current_user.rol == "alumno" %}
+
+            <a href="{{ url_for('materias_disponibles') }}">
+                Materias
+            </a>
+
+            <a href="{{ url_for('materias') }}">
+                Mis materias
+            </a>
+
+            {% elif current_user.rol == "profesor" %}
+
+            <a href="{{ url_for('materias_profesor') }}">
+                Mis materias
+            </a>
+
+            {% endif %}
+
+            <a href="{{ url_for('perfil') }}">
+                Mi perfil
+            </a>
+
+            <a href="{{ url_for('logout') }}">
+                Cerrar sesión
+            </a>
+
 
             {% else %}
 
-                <a href="{{ url_for('login') }}">
-                    Iniciar sesion
-                </a>
+            <a href="{{ url_for('login') }}">
+                Iniciar sesión
+            </a>
 
-                <a href="{{ url_for('registro') }}">
-                    Registrarse
-                </a>
+            <a href="{{ url_for('registro') }}">
+                Registrarse
+            </a>
 
             {% endif %}
 
@@ -50,7 +78,23 @@
 
 
     <main>
+        {% if current_user.rol == "alumno" %}
 
+        <a href="{{ url_for('unirse_materia') }}">
+            Unirse a materia
+        </a>
+
+        <a href="{{ url_for('materias') }}">
+            Mis materias
+        </a>
+
+        {% elif current_user.rol == "profesor" %}
+
+        <a href="{{ url_for('materias_profesor') }}">
+            Mis materias
+        </a>
+
+        {% endif %}
         {% block contenido %}
         {% endblock %}
 

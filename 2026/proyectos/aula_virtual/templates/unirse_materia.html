@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<section class="pagina">
+
+    <h1>Unirse a una materia</h1>
+
+    <p>
+        Introducí el código que te dio tu profesor.
+    </p>
+
+    <form
+        method="POST"
+        action="{{ url_for('unirse_materia') }}"
+    >
+
+        <input
+            type="text"
+            name="codigo"
+            placeholder="Ej: MAT-7K29PX"
+            required
+        >
+
+        <button
+            type="submit"
+            class="boton"
+        >
+            Unirme
+        </button>
+
+    </form>
+
+</section>
+
+{% endblock %}

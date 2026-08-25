@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<section class="pagina">
+
+    <h1>Mi perfil</h1>
+
+    <form method="POST">
+
+        <label>Nombre</label>
+
+        <input
+            type="text"
+            name="nombre"
+            value="{{ current_user.nombre }}"
+            required
+        >
+
+        <label>Email</label>
+
+        <input
+            type="email"
+            name="email"
+            value="{{ current_user.email }}"
+            required
+        >
+
+        <button class="boton" type="submit">
+            Guardar cambios
+        </button>
+
+    </form>
+
+
+    <hr>
+
+    <h2>Tipo de cuenta</h2>
+
+    <p>
+        Rol actual:
+        <strong>{{ current_user.rol }}</strong>
+    </p>
+
+    <form method="POST" action="{{ url_for('cambiar_rol') }}">
+
+        <select name="rol">
+
+            <option
+                value="alumno"
+                {% if current_user.rol == "alumno" %}selected{% endif %}
+            >
+                Alumno
+            </option>
+
+            <option
+                value="profesor"
+                {% if current_user.rol == "profesor" %}selected{% endif %}
+            >
+                Profesor
+            </option>
+
+        </select>
+
+        <button class="boton" type="submit">
+            Cambiar rol
+        </button>
+
+    </form>
+
+</section>
+
+{% endblock %}

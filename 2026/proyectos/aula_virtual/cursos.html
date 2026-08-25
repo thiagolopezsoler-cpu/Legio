@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<section class="pagina">
+
+```
+<h1>Cursos disponibles</h1>
+
+{% if materias %}
+
+    <div class="grid">
+
+        {% for materia in materias %}
+
+            <div class="tarjeta">
+
+                <h2>
+                    {{ materia.nombre }}
+                </h2>
+
+                <p>
+                    {{ materia.descripcion }}
+                </p>
+
+                {% if materia.id in materias_inscriptas %}
+
+                    <p>
+                        ✅ Ya estás inscripto
+                    </p>
+
+                    <a
+                        href="{{ url_for('materia', materia_id=materia.id) }}"
+                        class="boton"
+                    >
+                        Entrar al curso
+                    </a>
+
+                {% else %}
+
+                    <a
+                        href="{{ url_for('inscribirse', materia_id=materia.id) }}"
+                        class="boton"
+                    >
+                        Inscribirme
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% else %}
+
+    <p>
+        Todavía no hay cursos disponibles.
+    </p>
+
+{% endif %}
+```
+
+</section>
+
+{% endblock %}

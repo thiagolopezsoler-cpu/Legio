@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block contenido %}
+
+<section class="pagina">
+
+```
+<h1>{{ tarea.titulo }}</h1>
+
+<p>
+    {{ tarea.descripcion }}
+</p>
+
+<hr>
+
+<h3>Fecha de entrega</h3>
+
+<p>
+    {{ tarea.fecha_entrega }}
+</p>
+
+{% if tarea.archivo %}
+
+    <hr>
+
+    <h3>Material de la tarea</h3>
+
+    <p>
+        📎 {{ tarea.archivo }}
+    </p>
+
+    <a
+        href="{{ url_for('descargar_tarea', tarea_id=tarea.id) }}"
+        class="boton"
+    >
+        Descargar archivo
+    </a>
+
+{% endif %}
+
+<hr>
+
+<h2>Mi entrega</h2>
+
+{% if entrega %}
+
+    <div class="tarjeta">
+
+        <p>
+            📎 {{ entrega.archivo }}
+        </p>
+
+        {% if entrega.calificacion is not none %}
+
+            <p>
+                <strong>Calificación:</strong>
+                {{ entrega.calificacion }}
+            </p>
+
+            {% if entrega.comentario %}
+
+                <p>
+                    <strong>Comentario del profesor:</strong>
+                </p>
+
+                <p>
+                    {{ entrega.comentario }}
+                </p>
+
+            {% endif %}
+
+        {% else %}
+
+            <p>
+                Todavía no fue calificada.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+{% endif %}
+
+<h3>
+    {% if entrega %}
+        Reemplazar trabajo
+    {% else %}
+        Subir trabajo
+    {% endif %}
+</h3>
+
+<form
+    method="POST"
+    action="{{ url_for('entregar_tarea', tarea_id=tarea.id) }}"
+    enctype="multipart/form-data"
+>
+
+    <input
+        type="file"
+        name="archivo"
+        required
+    >
+
+    <button
+        type="submit"
+        class="boton"
+    >
+        {% if entrega %}
+            Reemplazar entrega
+        {% else %}
+            Entregar trabajo
+        {% endif %}
+    </button>
+
+</form>
+```
+
+</section>
+
+{% endblock %}
