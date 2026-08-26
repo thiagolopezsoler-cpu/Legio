@@ -4,92 +4,34 @@
 
 <section class="pagina">
 
-    {% if materia %}
-
-    <!-- EDITAR MATERIA -->
-
-    <div class="titulo-pagina">
-
-        <div>
-            <h1>{{ materia.nombre }}</h1>
-            <p>{{ materia.descripcion }}</p>
-        </div>
-        <p>
-            <strong>Código de inscripción:</strong>
-            {{ materia.codigo }}
-        </p>
-        <a href="{{ url_for('crear_tarea', materia_id=materia.id) }}" class="boton">
-            + Nueva tarea
-        </a>
-
-    </div>
-
-    <h2>Tareas</h2>
-
-    {% if tareas %}
-
-    <div class="grid">
-
-        {% for tarea in tareas %}
-
-        <div class="tarjeta">
-
-            <h3>{{ tarea.titulo }}</h3>
-
-            <p>{{ tarea.descripcion }}</p>
-
-            <p>
-                Entrega: {{ tarea.fecha_entrega }}
-            </p>
-
-            <div class="acciones">
-
-                <a href="{{ url_for('editar_tarea', tarea_id=tarea.id) }}" class="boton">
-                    Editar
-                </a>
-
-                <a href="{{ url_for('eliminar_tarea', tarea_id=tarea.id) }}" class="boton eliminar">
-                    Eliminar
-                </a>
-
-                <a href="{{ url_for('ver_entregas', tarea_id=tarea.id) }}" class="boton">
-                    Entregas
-                </a>
-
-            </div>
-
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-    {% else %}
-
-    <p>Todavia no hay tareas.</p>
-
-    {% endif %}
-
-
-    {% else %}
-
-    <!-- CREAR MATERIA -->
-
-    <h1>Crear curso</h1>
+    <h1>Crear materia</h1>
 
     <form method="POST">
 
-        <input type="text" name="nombre" placeholder="Nombre del curso" required>
+        <input
+            type="text"
+            name="nombre"
+            placeholder="Nombre de la materia"
+            required
+        >
 
-        <textarea name="descripcion" placeholder="Descripcion del curso" rows="6" required></textarea>
+        <textarea
+            name="descripcion"
+            placeholder="Descripcion de la materia"
+        ></textarea>
+
+        <input
+            type="text"
+            name="codigo"
+            placeholder="Codigo de la materia"
+            required
+        >
 
         <button type="submit" class="boton">
-            Crear curso
+            Crear materia
         </button>
 
     </form>
-
-    {% endif %}
 
 </section>
 

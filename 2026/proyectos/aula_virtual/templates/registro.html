@@ -6,7 +6,11 @@
 
     <h1>Crear cuenta</h1>
 
-    <form method="POST">
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('registro') }}">
 
         <input
             type="text"
@@ -35,10 +39,7 @@
             <option value="profesor">Profesor</option>
         </select>
 
-        <button
-            type="submit"
-            class="boton"
-        >
+        <button type="submit" class="boton">
             Registrarse
         </button>
 

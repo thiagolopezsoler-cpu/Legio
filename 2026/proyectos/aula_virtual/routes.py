@@ -80,10 +80,15 @@ def registro():
         password = request.form["password"]
         rol = request.form["rol"]
 
-        usuario_existente = Usuario.query.filter_by(email=email).first()
+        usuario_existente = Usuario.query.filter_by(
+            email=email
+        ).first()
 
         if usuario_existente:
-            return "Ese email ya esta registrado"
+            return render_template(
+                "registro.html",
+                error="Ese email ya esta registrado"
+            )
 
         usuario = Usuario(
             nombre=nombre,
@@ -98,11 +103,6 @@ def registro():
         return redirect(url_for("login"))
 
     return render_template("registro.html")
-
-
-# =========================
-# LOGIN
-# =========================
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -276,37 +276,19 @@ def materias_profesor():
         materias=materias
     )
 
-
 @app.route("/profesor/materia/crear", methods=["GET", "POST"])
 @login_required
 def crear_materia():
-
-    if current_user.rol != "profesor":
-        return "No tenes permiso para crear cursos"
-
     if request.method == "POST":
+        print("FORMULARIO RECIBIDO:", request.form)
 
-        nombre = request.form["nombre"]
-        descripcion = request.form["descripcion"]
+        nombre = request.form.get("nombre")
+        descripcion = request.form.get("descripcion")
+        codigo = request.form.get("codigo")
 
-        materia = Materia(
-            nombre=nombre,
-            descripcion=descripcion,
-            profesor_id=current_user.id
-        )
-
-        db.session.add(materia)
-        db.session.commit()
-
-        return redirect(url_for(
-            "materias_profesor"
-        ))
-
-    return render_template(
-        "profesor/materia.html",
-        materia=None,
-        tareas=[]
-    )
+        print("NOMBRE:", nombre)
+        print("DESCRIPCION:", descripcion)
+        print("CODIGO:", codigo)
 
 @app.route(
     "/profesor/materia/<int:materia_id>/editar",

@@ -80,8 +80,8 @@
     <main>
         {% if current_user.rol == "alumno" %}
 
-        <a href="{{ url_for('unirse_materia') }}">
-            Unirse a materia
+        <a href="{{ url_for('materias_disponibles') }}">
+            Materias
         </a>
 
         <a href="{{ url_for('materias') }}">

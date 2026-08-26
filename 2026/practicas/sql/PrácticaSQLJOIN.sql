@@ -1,8 +1,7 @@
 DROP DATABASE Ventas;
 CREATE DATABASE Ventas;
 USE Ventas;
-CREATE DATABASE ventas;
-USE ventas;
+
 
 CREATE TABLE pais (
     id_pais INT PRIMARY KEY,
